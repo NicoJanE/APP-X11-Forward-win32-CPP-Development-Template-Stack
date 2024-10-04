@@ -20,8 +20,8 @@ _This source code is licensed under the MIT License found in the  'LICENSE.md' f
   - [Install the X-Server(client)](#214-install-the-x-server-vcxsrv)<br> 
   - [Create the base container](#215-create-the-basic-docker-container)<br> 
 - ***Sub Containers***                      
-  - [Create win32 C application container](#321-steps-to-create-a-win32-c-application-container)<br> 
-  - [Start to win32 C application container](#322-attach-to-the-win32-c-application-container)<br> 
+  - [Create win32 C++ application container](#321-steps-to-create-a-win32-c-application-container)<br> 
+  - [Start to win32 C++ application container](#322-attach-to-the-win32-c-application-container)<br> 
   - [Develop with VSC](#4-develop-with-vsc-in-the-host)<br> <br>
 </div>  
 
