@@ -23,7 +23,7 @@ While this is designed as a cross-compiling Win32 environment, nothing stops you
 
 
 ### Quick setup
-If you have previously installed this container, you can use the quick setup steps below. Otherwise please first read the [how to create a development container](./Howtos/howto_create_a_dev_container) document.
+If you have previously installed this container, you can use the quick setup steps below. Otherwise please first read the [how to create a development container](https://nicojane.github.io/APP-X11-Forward-win32-CPP-Development-Template-Stack/Howtos/howto_create_a_dev_container) document.
 - In case you don't have the **WSL** container
 <pre class="nje-cmd-one-line"> wsl --import Ubuntu-docker-App-X11-Win32Dev ./wsl2-distro  "install.tar.gz"  </pre>
 - Create docker base container
