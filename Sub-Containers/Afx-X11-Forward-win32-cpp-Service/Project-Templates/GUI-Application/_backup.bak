@@ -2,7 +2,7 @@
 
 # Define the source and destination directories
 SOURCE_DIR="$(pwd)"
-DEST_DIR="/shared-host/backup-project_date"
+DEST_DIR="/shared-host/backup-project_okt24"
 
 # Check if the destination directory exists
 if [ ! -d "$DEST_DIR" ]; then

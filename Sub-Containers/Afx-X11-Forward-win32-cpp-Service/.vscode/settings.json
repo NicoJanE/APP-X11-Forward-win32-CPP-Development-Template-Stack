@@ -7,6 +7,5 @@
     "${workspaceFolder}/**"
   ],
   "C_Cpp.dimInactiveRegions": true,
-  "C_Cpp.intelliSenseEngine": "default",  
-
-}
+  "C_Cpp.intelliSenseEngine": "default",
+ }

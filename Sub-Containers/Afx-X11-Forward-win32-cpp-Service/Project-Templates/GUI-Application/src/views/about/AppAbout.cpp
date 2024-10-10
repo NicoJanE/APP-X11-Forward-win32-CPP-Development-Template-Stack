@@ -1,10 +1,9 @@
 
 // Application includes
 #include "../../../headers/views/_main/WinMain.h" 			
-#include "../../../headers/system/WindowUtil.h"
+#include "../../../headers/system/WindowAPI.h"
 #include "../../../headers/views/about/AppAbout.h"
-
-//#include "../../../resource/Resource.h"         // Our resource files
+#include <string>
 
 
 // Static method message handler for about box. static or free functions are required for WIN32 CALLBACK methods
@@ -27,8 +26,7 @@ INT_PTR CALLBACK AppAbout::CB_About(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			// Because this is a static method(required WIN32 due to C calling convention for CALLBACK functions\methods)  we must get the original class object again from the
 			// correct HWWD so we can use the original data object (MainWin* pMainWin).
 			pMainWin = WNAPI::GetObjectFromParentWnd(pMainWin,hDlg);
-			WNAPI::ChangeWSStyle(pMainWin->GetHwnd(),   WS_VSCROLL );				// Example std::wstring d=   pMainWin->GetTitle();
-
+			WNAPI::ChangeWSStyle(pMainWin->GetHwnd(),   WS_VSCROLL );				
             EndDialog(hDlg, LOWORD(wParam));
             return (INT_PTR)TRUE;
         }
@@ -36,3 +34,4 @@ INT_PTR CALLBACK AppAbout::CB_About(HWND hDlg, UINT message, WPARAM wParam, LPAR
     }
     return (INT_PTR)FALSE;
 }
+

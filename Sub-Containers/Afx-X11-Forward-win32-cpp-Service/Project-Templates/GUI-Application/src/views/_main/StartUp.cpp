@@ -1,6 +1,10 @@
-
 // Win32Temp.cpp : Defines the entry point for the application.
 // https://docs.microsoft.com/en-us/windows/desktop/apiindex/windows-api-list
+
+// We will use UNICODE & STANDARD C types: DEBUG
+// see: [[doc/conventions/WindowsTypes-CTypes.md]]
+
+ 
 
 // System include
 #include <windows.h>
@@ -11,7 +15,7 @@
 // Application includes here
 #include "../../../headers/views/_main/WinMain.h"
 #include "../../../headers/views/_main/StartUp.h"			// Self Startup
-#include "../../../headers/system/WindowDef.h"
+#include "../../../headers/system/WindowAPI_Def.h"
 #include "../../../resource/Resource.h"
 
 
@@ -21,10 +25,11 @@
 
 // Global Variables:
 HINSTANCE	GLO_hInst;		                              // current instance
-WCHAR		GLO_szTitle[MAX_LOADSTRING];                  // The title bar text
-WCHAR		GLO_szWindowClass[MAX_LOADSTRING];            // the main window class name
+wchar_t		GLO_szTitle[MAX_LOADSTRING];                  // The title bar text
+wchar_t		GLO_szWindowClass[MAX_LOADSTRING];            // the main window class name
 
 
+// Free function
 // Static application Window Procedure. This dispatcher which will dispatch message for this application to the correct Window procedure of (WndProc) the class/object
 //
 // This dispatcher requires that the object of the class is set after the creation of the window in the class itself (see InitInstance m method of the class)
@@ -52,10 +57,10 @@ LRESULT static CALLBACK WndProcDispatcher(HWND hWnd, UINT message, WPARAM wParam
 
 
 
-// Entry point        
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR    lpCmdLine, _In_ int nCmdShow)
+// Entry point function       
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ wchar_t*    lpCmdLine, _In_ int nCmdShow)
 {
-	MainWin mainWin;
+	MainWin mainWin;																	// Object-oriented shift	
 	HACCEL hAccelTable = nullptr;
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -65,14 +70,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	LoadStringW(hInstance, IDS_APP_TITLE, GLO_szTitle, MAX_LOADSTRING);					// Set the visible window title name
 	LoadStringW(hInstance, IDC_WIN32TEMPLATE, GLO_szWindowClass, MAX_LOADSTRING);		// The name of the WNDCLASSEXW structure  to  identify it in CreateWindowW()
 
-    // 1) Initialize the main Window properties	
-	mainWin.DefineWindow(hInstance,WndProcDispatcher, (LPCTSTR )GLO_szTitle, (LPCTSTR )GLO_szWindowClass);
+    // 1) Initialize the main Window properties
+	mainWin.DefineWindow(hInstance,WndProcDispatcher, GLO_szTitle, GLO_szWindowClass);
 
     // 2)  Create the Window defined in: WinMainClassDefinition() and display it
 	if ( !mainWin.CreateTheWindow( nCmdShow, hAccelTable) )
 		return false;
 	
-	// Optional define other main windows her like above, see also WndProcDispatcher() !!
+	// Optional define other main windows here like above, see also WndProcDispatcher() !!
 
 
 	// 3) start global application message loop. If there is a message for our application, the callback WndProcDispatcher (WndProc) will be called, to rout the message to the correct object

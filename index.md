@@ -22,8 +22,25 @@ While this is designed as a cross-compiling Win32 environment, nothing stops you
 - Win32 C++ project environment
 
 
-## Quick Setup
-There are no quick setup instructions for this image. First, you need to install the Base Container/Image, which takes about 20 minutes. After that, you can easily add Sub Containers. Please refer to the document [how to create a development container](./Howtos/howto_create_a_dev_container). which explains the installation of the **Base Container** and any available **Sub Containers**.
+### Quick setup
+If you have previously installed this container, you can use the quick setup steps below. Otherwise please first read the [how to create a development container](./Howtos/howto_create_a_dev_container) document.
+- In case you don't have the **WSL** container
+<pre class="nje-cmd-one-line"> wsl --import Ubuntu-docker-App-X11-Win32Dev ./wsl2-distro  "install.tar.gz"  </pre>
+- Create docker base container
+ <pre class="nje-cmd-one-line">docker-compose -f compose_app_forward_x11_win32-cpp_base.yml up -d --build --force-recreate  --remove-orphans </pre>
+ - Install C++ sub-container
+  <pre class="nje-cmd-one-line">docker-compose -f compose_win32-cpp_project.yml up -d  --remove-orphans --build --force-recreate  </pre>
+  - Attach docker to the WSL
+  <pre class="nje-cmd-multi-line">
+# Start WSL
+wsl -d Ubuntu-docker-App-X11-Win32Dev  
 
+# Attach docker
+docker exec -it afx-x11-forward-win32-cpp-service-axf-win32-cpp-1 /bin/bash 
+# If the container cannot be found, restart the Docker app and ensure 
+# WSL integration is enabled in Docker settings!
+</pre>
+
+After completing these steps, you should be able to open the container in VS Code and begin developing.
 
 

@@ -4,13 +4,11 @@
 
 // Application includes
 #include "../../../headers/views/_main/WinMain.h"  // self
+#include "../../../headers/views/about/AppAbout.h"
 #include "../../../headers/views/_main/StartUp.h"			
-#include "../../../headers/system/WindowDef.h"
-#include "../../../headers/system/WindowUtil.h"
-
+#include "../../../headers/system/WindowAPI_Def.h"
+#include "../../../headers/system/WindowAPI.h"
 #include "../../../resource/Resource.h"         // Our resource files
-
-
 
 
 
@@ -48,7 +46,7 @@ BOOL MainWin::InitInstance( int nCmdShow)
 
 // Public
 // 1) Initialize the main Window properties
-ATOM MainWin::DefineWindow(HINSTANCE hInstance,  WNDPROC WndProcold, LPCTSTR szTitle, LPCTSTR szWindowClass)
+ATOM MainWin::DefineWindow(HINSTANCE hInstance,  WNDPROC WndProcold, const wchar_t*	 szTitle, const wchar_t* szWindowClass)
 {
 	SetHinstance(hInstance);
 	SetTitle(szTitle);
@@ -96,7 +94,7 @@ LRESULT CALLBACK MainWin::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
             switch (wmId)
             {
             case IDM_ABOUT:
-				DialogBox(GetInstance(), MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);	// Be aware: About() / callbacks must be static or a free function */
+				DialogBox(GetInstance(), MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, AppAbout::CB_About);	// Be aware: About() / callbacks must be static or a free function */
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
@@ -113,7 +111,7 @@ LRESULT CALLBACK MainWin::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 
 			HDC hdc = BeginPaint(hWnd, &ps);
 			GetClientRect(GetHwnd(), &rect);
-			DrawText(hdc, TEXT("Hello, Windows"), -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+			DrawText(hdc, L"Hello, Windows", -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 			EndPaint(hWnd, &ps);
         }
         break;
@@ -124,31 +122,4 @@ LRESULT CALLBACK MainWin::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
-
-
-// Static method message handler for about box. static or free functions are required for WIN32 CALLBACK methods
-INT_PTR CALLBACK MainWin::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-	MainWin* pann = nullptr;
-
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-			// Because this is a static method(required WIN32 due to C calling convention for CALLBACK functions\methods)  we must get the original class object again from the
-			// correct HWWD so we can use the original data object (MainWin* pann).
-			pann = WNAPI::GetObjectFromParentWnd(pann,hDlg);
-			WNAPI::ChangeWSStyle(pann->GetHwnd(),   WS_VSCROLL );				// Example std::wstring d=   pann->GetTitle();
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }
