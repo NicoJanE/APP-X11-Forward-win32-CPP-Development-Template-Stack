@@ -41,6 +41,9 @@ docker exec -it afx-x11-forward-win32-cpp-service-axf-win32-cpp-1 /bin/bash
 # WSL integration is enabled in Docker settings!
 </pre>
 
-After completing these steps, you should be able to open the container in VS Code and begin developing.
-
+After this you should be able to open the container in VSC and start developing, be sure to run the following command first to read the application name from the .env file and set it in the project
+<pre class="nje-cmd-multi-line">
+source ./set_env.sh  # From terminal in the root project dir.
+                     # You may need to reload the VSC Window!
+</pre>
 
